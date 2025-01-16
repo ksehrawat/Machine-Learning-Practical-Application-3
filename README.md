@@ -1,2 +1,2 @@
-# Machine-Learning-Practical-Application-3
+# Practical Application 3
 Github repository for the Practical Application 3

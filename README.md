@@ -5,7 +5,8 @@ The goal of this project was to develop machine learning models to predict wheth
 
 ## Steps Taken
 
-* Data Exploration and Cleaning:
-  
-  ** The dataset contained over 40,000 records with variables spanning client demographics, campaign metrics, and economic indicators.
-Replaced "unknown" values with NaN, removed irrelevant columns like duration, and normalized numerical features.
+### Data Exploration and Cleaning:
+
+* The dataset contained over 40,000 records with variables spanning client demographics, campaign metrics, and economic indicators.
+* Replaced "unknown" values with NaN, removed irrelevant columns like duration, and normalized numerical features.
+

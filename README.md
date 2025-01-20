@@ -193,3 +193,38 @@ The data analysis for the dataframe df reveals several key insights:
 #### Additional Observations:
 * The majority of contacts were made via "cellular."
 * The "may" month shows the highest campaign activity.
+
+### Data Cleaning
+```python
+# 1. Check and handle missing values in categorical columns
+missing_categorical = df.select_dtypes(include=['object']).isnull().sum()
+missing_categorical
+```
+<img width="143" alt="Screenshot 2025-01-20 at 3 55 33 PM" src="https://github.com/user-attachments/assets/c51d5400-1df5-4b34-a68a-15f5dca68a11" />
+
+```python
+# Replace "unknown" in certain columns with NaN for better handling
+columns_with_unknown = ['job', 'marital', 'education', 'default', 'housing', 'loan']
+df[columns_with_unknown] = df[columns_with_unknown].replace('unknown', np.nan)
+```
+
+```python
+# 2. Recheck missing values after replacements
+missing_values_after = df.isnull().sum()
+missing_values_after
+```
+<img width="155" alt="Screenshot 2025-01-20 at 3 56 44 PM" src="https://github.com/user-attachments/assets/369a5f0e-9d63-4a59-97cc-e294ac953c50" />
+
+```python
+# 4. Removing irrelevant or redundant columns
+# Based on the description, "duration" should not be used for realistic modeling.
+df_cleaned = df.drop(columns=['duration'])
+```
+```python
+# 5. Rename columns for readability
+df_cleaned.rename(columns=lambda x: x.replace('.', '_'), inplace=True)
+```
+```python
+df_cleaned.info()
+```
+<img width="395" alt="Screenshot 2025-01-20 at 3 58 39 PM" src="https://github.com/user-attachments/assets/30b3087c-0811-4a1b-a3e3-d8d3709d4da6" />

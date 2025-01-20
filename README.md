@@ -82,7 +82,5 @@ unique_campaigns = df['campaign'].nunique()
 unique_campaigns
 
 df.head()
-
-
-
+```
 

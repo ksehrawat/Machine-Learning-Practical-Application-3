@@ -27,3 +27,17 @@ The goal of this project was to develop machine learning models to predict wheth
 
 * The Random Forest model emerged as the best-performing model, with an accuracy of 89.16% and an AUC-ROC of 77.47%.
 * Optimized hyperparameters (max_depth, max_features, etc.) further enhanced performance.
+
+## Findings
+
+### Key Influential Features:
+* Economic Indicators: nr_employed, euribor3m, and emp_var_rate were among the top predictors.
+* Campaign Metrics: campaign_pdays_interaction and pdays highlighted the importance of outreach timing and frequency.
+* Client History: Variables like poutcome_success and prev_success_contacts underscored the significance of past interactions.
+
+### Model Insights:
+
+* Logistic Regression was interpretable but struggled with recall.
+* KNN provided quick predictions but required careful scaling and hyperparameter tuning.
+* Decision Tree suffered from overfitting without pruning.
+* Random Forest effectively handled feature interactions and delivered robust performance.

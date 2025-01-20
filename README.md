@@ -166,11 +166,9 @@ plt.show()
 <img width="999" alt="Screenshot 2025-01-20 at 3 50 12 PM" src="https://github.com/user-attachments/assets/8a147c19-61b6-489f-8cf1-c8870a8eb130" />
 
 ### Data Analysis Summary
-
-#### Data Analysis
 The data analysis for the dataframe df reveals several key insights:
 
-### General Overview:
+#### General Overview:
 * Total records: 41,188
 * 21 columns, including 11 categorical and 10 numerical features.
 * No missing values in the dataset.

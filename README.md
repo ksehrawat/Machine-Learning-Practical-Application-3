@@ -55,3 +55,34 @@ The goal of this project was to develop machine learning models to predict wheth
 
 ## Conclusion
 This project successfully developed and optimized machine learning models to predict term deposit subscriptions. The insights generated from feature importance analysis and model performance evaluations offer valuable guidance for enhancing marketing efforts and targeting high-potential clients effectively. Further refinements and deployment of the model can maximize its practical utility in real-world scenarios.
+
+
+## Coding Snapshots
+
+## Create DataFrame in Python for the Data Set
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import plotly.express as px
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, classification_report
+
+file_path = '/content/drive/MyDrive/Practical-Application-3/bank-additional-full.csv'
+df = pd.read_csv(file_path, sep = ';')
+
+# Display unique campaign counts
+unique_campaigns = df['campaign'].nunique()
+unique_campaigns
+
+df.head()
+
+
+
+

@@ -3,6 +3,11 @@
 ## Objective
 The goal of this project was to develop machine learning models to predict whether clients of a Portuguese bank would subscribe to a term deposit based on demographic, financial, and campaign-related data. The project aimed to provide actionable insights for marketing strategies while optimizing model performance.
 
+## Data Information
+* Data Folder: data - This folder is created to store the data file (coupons.csv)
+* Data Set - Data set used in the project is in the coupons.csv file
+* Code File - Python Code is stored in the Module_5_Activity1.ipynb file
+
 ## Steps Taken
 
 ### Data Exploration and Cleaning:

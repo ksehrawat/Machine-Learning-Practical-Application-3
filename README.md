@@ -41,3 +41,12 @@ The goal of this project was to develop machine learning models to predict wheth
 * KNN provided quick predictions but required careful scaling and hyperparameter tuning.
 * Decision Tree suffered from overfitting without pruning.
 * Random Forest effectively handled feature interactions and delivered robust performance.
+
+## Recommendations:
+### Marketing Strategy:
+
+* Focus on clients with favorable economic indicators (e.g., euribor3m rates) and positive past campaign outcomes (poutcome_success).
+* Optimize campaign timing by leveraging insights from campaign_pdays_interaction.
+
+## Conclusion
+This project successfully developed and optimized machine learning models to predict term deposit subscriptions. The insights generated from feature importance analysis and model performance evaluations offer valuable guidance for enhancing marketing efforts and targeting high-potential clients effectively. Further refinements and deployment of the model can maximize its practical utility in real-world scenarios.

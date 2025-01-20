@@ -142,4 +142,27 @@ target_distribution
 ```
 <img width="125" alt="Screenshot 2025-01-20 at 3 42 26 PM" src="https://github.com/user-attachments/assets/47bdbd96-5b2d-4472-aff2-c5f15b695068" />
 
+```python
+# Summary statistics for numerical columns
+numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
+numerical_summary = df[numerical_cols].describe()
+numerical_summary
+```
+<img width="1158" alt="Screenshot 2025-01-20 at 3 48 11 PM" src="https://github.com/user-attachments/assets/d211dddf-ba3c-497c-b340-87288a92a8d9" />
+
+```python
+# Overview of categorical columns
+categorical_cols = df.select_dtypes(include=['object']).columns
+categorical_summary = {col: df[col].value_counts() for col in categorical_cols}
+categorical_summary
+```
+```python
+# Correlation heatmap for numerical variables
+plt.figure(figsize=(12, 8))
+sns.heatmap(df[numerical_cols].corr(), annot=True, fmt='.2f', cmap='coolwarm')
+plt.title("Correlation Heatmap of Numerical Variables")
+plt.show()
+```
+<img width="999" alt="Screenshot 2025-01-20 at 3 50 12 PM" src="https://github.com/user-attachments/assets/8a147c19-61b6-489f-8cf1-c8870a8eb130" />
+
 

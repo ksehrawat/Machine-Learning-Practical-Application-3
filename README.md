@@ -114,3 +114,24 @@ df.head()
 
 Output variable (desired target):
 21 - y - has the client subscribed a term deposit? (binary: 'yes','no')
+
+# General overview of the data
+data_info = df.info()
+
+# General Description of the dataframe
+data_description = df.describe()
+data_description
+
+# Checking for missing values
+missing_values = df.isnull().sum()
+missing_values
+
+<img width="139" alt="Screenshot 2025-01-20 at 3 41 50 PM" src="https://github.com/user-attachments/assets/b76b31a9-4b61-4093-9b26-dfdd11ff4359" />
+
+
+# Distribution of the target variable `y`
+target_distribution = df['y'].value_counts()
+target_distribution
+<img width="125" alt="Screenshot 2025-01-20 at 3 42 26 PM" src="https://github.com/user-attachments/assets/47bdbd96-5b2d-4472-aff2-c5f15b695068" />
+
+

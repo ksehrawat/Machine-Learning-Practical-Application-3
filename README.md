@@ -165,4 +165,33 @@ plt.show()
 ```
 <img width="999" alt="Screenshot 2025-01-20 at 3 50 12 PM" src="https://github.com/user-attachments/assets/8a147c19-61b6-489f-8cf1-c8870a8eb130" />
 
+### Data Analysis Summary
 
+#### Data Analysis
+The data analysis for the dataframe df reveals several key insights:
+
+### General Overview:
+* Total records: 41,188
+* 21 columns, including 11 categorical and 10 numerical features.
+* No missing values in the dataset.
+  
+#### Target Variable (y) Distribution:
+* "no" (not subscribed): 36,548 (88.7%)
+* "yes" (subscribed): 4,640 (11.3%)
+  
+#### Key Numerical Insights:
+* Most clients were contacted only once during the campaign (campaign median = 2).
+* High variance in duration (range from 0 to 4918 seconds).
+* pdays indicates that most clients had not been previously contacted (999).
+  
+#### Correlation Analysis:
+* Some numerical variables (e.g., emp.var.rate, euribor3m, nr.employed) show strong relationships, possibly indicating trends in the economy.
+  
+#### Categorical Variable Distribution:
+* Job roles are diverse, with "admin." and "blue-collar" roles being the most common.
+* Most clients are "married."
+* "University degree" is the most common education level.
+  
+#### Additional Observations:
+* The majority of contacts were made via "cellular."
+* The "may" month shows the highest campaign activity.

@@ -83,4 +83,4 @@ unique_campaigns
 
 df.head()
 ```
-
+<img width="1680" alt="Screenshot 2025-01-20 at 3 31 20 PM" src="https://github.com/user-attachments/assets/0359a186-5b9f-4b5c-a1a9-aeb27b1f7974" />

@@ -119,6 +119,7 @@ Output variable (desired target):
 data_info = df.info()
 ```
 <img width="387" alt="Screenshot 2025-01-20 at 3 43 45 PM" src="https://github.com/user-attachments/assets/16be3928-6057-49b7-aa8c-584fd1672403" />
+
 ```python
 # General Description of the dataframe
 data_description = df.describe()

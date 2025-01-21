@@ -5,7 +5,7 @@ The goal of this project was to develop machine learning models to predict wheth
 
 ## Data Information
 * Data Set - Data set used in the project is in the bank-additional-full.csv file
-* Data Folder: A folder is created in the Google Drive to store the data file (bank-additional-full.csv). Data file was stored in the /content/drive/MyDrive/Practical-Application-3 Google Drive Folder.
+* Data Folder: A folder is created in the Google Drive (/content/drive/MyDrive/Practical-Application-3) to store the data file (bank-additional-full.csv).
 * Code File - Python Code is stored in the Practical_Application_3.ipynb file. Google Colab is being used to run the Python code.
 
 ## Steps Taken

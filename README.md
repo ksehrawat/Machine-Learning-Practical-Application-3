@@ -471,3 +471,61 @@ display(logistic_results_df)
 
 #### F1 Score:
 * The F1 Score was 27.97%, reflecting the imbalance between Precision and Recall. This low score highlights that the model struggled to balance the trade-off between avoiding false positives and capturing true positives.
+
+### Logistic Regression Model Refinements
+
+```python
+# Addressing ConvergenceWarning by increasing max_iter and refining solver
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+
+# Adjust parameters and increase max_iter
+param_grid = {'C': [0.01, 0.1, 1, 10, 100], 'solver': ['liblinear']}
+logistic_model_adjusted = LogisticRegression(class_weight='balanced', max_iter=5000, random_state=42)
+
+# Perform GridSearchCV with updated parameters
+grid_search_adjusted = GridSearchCV(logistic_model_adjusted, param_grid, cv=5, scoring='f1')
+grid_search_adjusted.fit(X_train, y_train)
+
+# Best parameters from the adjusted GridSearchCV
+best_params_adjusted = grid_search_adjusted.best_params_
+
+# Train the model with best parameters
+adjusted_logistic_model = LogisticRegression(**best_params_adjusted, class_weight='balanced', max_iter=5000, random_state=42)
+adjusted_logistic_model.fit(X_train, y_train)
+
+# Predict on the test set
+y_pred_adjusted = adjusted_logistic_model.predict(X_test)
+
+# Evaluate the adjusted model
+adjusted_results = {
+    'Best Parameters': str(best_params_adjusted),
+    'Accuracy': accuracy_score(y_test, y_pred_adjusted),
+    'Precision': precision_score(y_test, y_pred_adjusted),
+    'Recall': recall_score(y_test, y_pred_adjusted),
+    'F1 Score': f1_score(y_test, y_pred_adjusted),
+    'Classification Report': classification_report(y_test, y_pred_adjusted)
+}
+
+# Display the results of the adjusted model
+adjusted_results_df = pd.DataFrame.from_dict(adjusted_results, orient='index', columns=['Value'])
+print("\nAdjusted Logistic Regression Model Results:")
+print(adjusted_results_df)
+```
+<img width="710" alt="Screenshot 2025-01-20 at 4 48 26 PM" src="https://github.com/user-attachments/assets/76eccaa2-96dd-47d7-baee-f5fa9f83ff20" />
+
+The adjusted Logistic Regression model has been successfully trained and evaluated. The updated results are as follows:
+
+* Best Parameters: {'C': 0.1, 'solver': 'liblinear'}
+
+* Accuracy: 80.68%
+
+* Precision: 31.93%
+
+* Recall: 63.50%
+
+* F1 Score: 42.50%
+
+These improvements demonstrate better balance between Precision and Recall for the minority class (yes), as indicated by the higher Recall and F1 Score compared to previous evaluations.​
+
+

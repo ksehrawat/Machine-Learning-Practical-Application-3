@@ -228,3 +228,11 @@ df_cleaned.rename(columns=lambda x: x.replace('.', '_'), inplace=True)
 df_cleaned.info()
 ```
 <img width="395" alt="Screenshot 2025-01-20 at 3 58 39 PM" src="https://github.com/user-attachments/assets/30b3087c-0811-4a1b-a3e3-d8d3709d4da6" />
+
+### Data Cleaning Summary
+#### Handling Missing Values:
+* Replaced "unknown" in job, marital, education, default, housing, and loan columns with NaN.
+#### Dropped Columns:
+* Removed the duration column as it should not be used for realistic modeling.
+#### Renamed Columns:
+*Adjusted column names to make them more readable by replacing periods with underscores.

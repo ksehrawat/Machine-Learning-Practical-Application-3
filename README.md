@@ -361,5 +361,56 @@ The correlation heatmap highlights the relationships among numerical variables i
 
 ### Features Engineering
 
+```python
+# Feature Engineering on Cleaned Data
 
+# 1. Encoding Categorical Variables
+# Convert categorical variables to one-hot encoded variables
+df_encoded = pd.get_dummies(df_cleaned, columns=['job', 'marital', 'education', 'default', 'housing', 'loan',
+                                                 'contact', 'month', 'day_of_week', 'poutcome'], drop_first=True)
 
+# 2. Create Interaction Features
+# Interaction between `campaign` and `pdays`
+df_encoded['campaign_pdays_interaction'] = df_encoded['campaign'] * df_encoded['pdays']
+
+# Interaction between `nr_employed` and `emp_var_rate`
+df_encoded['employment_trend'] = df_encoded['nr_employed'] * df_encoded['emp_var_rate']
+
+# 3. Binning Continuous Variables
+# Age bins
+df_encoded['age_group'] = pd.cut(df_cleaned['age'], bins=[0, 25, 35, 50, 65, 100],
+                                 labels=['<25', '25-35', '36-50', '51-65', '65+'])
+
+# Pdays bins
+df_encoded['pdays_group'] = pd.cut(df_cleaned['pdays'], bins=[-1, 0, 5, 10, 999],
+                                   labels=['Not Contacted', '0-5 Days', '6-10 Days', 'More than 10 Days'])
+
+# ----> Include the new created columns in the one-hot encoding <----
+df_encoded = pd.get_dummies(df_encoded, columns=['age_group', 'pdays_group'], drop_first=True)
+
+# 4. Creating Aggregated Features
+# Count of previous successful contacts
+df_encoded['prev_success_contacts'] = (df_cleaned['poutcome'] == 'success').astype(int) * df_cleaned['previous']
+
+# 5. Normalize/Scale Numerical Features
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+numerical_cols = ['age', 'campaign', 'pdays', 'previous', 'emp_var_rate', 'cons_price_idx', 'cons_conf_idx',
+                  'euribor3m', 'nr_employed']
+df_encoded[numerical_cols] = scaler.fit_transform(df_encoded[numerical_cols])
+
+# Display the engineered dataframe
+df_encoded.head()
+```
+#### Key Transformations
+#### Encoding Categorical Variables:
+* One-hot encoded variables for features like job, marital, education, etc.
+#### Interaction Features:
+* Created interaction terms like campaign_pdays_interaction and employment_trend to capture relationships between variables.
+#### Binning Continuous Variables:
+* Grouped age and pdays into meaningful categories (e.g., age groups and contact timing).
+#### Aggregated Features:
+* Counted previous successful contacts using the poutcome feature.
+#### Normalization:
+* Scaled numerical columns to a 0–1 range using MinMaxScaler.

@@ -359,6 +359,7 @@ The correlation heatmap highlights the relationships among numerical variables i
 * Features like euribor3m, emp_var_rate, and nr_employed are critical indicators of economic trends and likely influence the target variable (y).
 * Variables with weak correlations, such as campaign, may require deeper non-linear analysis or be deprioritized in feature importance.
 
+### Features Engineering
 
 
 

@@ -320,8 +320,44 @@ fig.show()
 <img width="1638" alt="Screenshot 2025-01-20 at 4 07 26 PM" src="https://github.com/user-attachments/assets/1dd27f7b-b56c-4502-9936-aa9f7986f9be" />
 
 ```python
+# Visualization 8: Correlation Heatmap of Numerical Variables
+plt.figure(figsize=(12, 8))
+# Select only numerical features for correlation calculation
+numerical_features = df_cleaned.select_dtypes(include=np.number)
+correlation = numerical_features.corr()
+sns.heatmap(correlation, annot=True, cmap="coolwarm", fmt=".2f", linewidths=0.5)
+plt.title("Correlation Heatmap")
+plt.show()
 
+# Analysis of the correlation heatmap
+correlation_analysis = correlation.unstack().sort_values(ascending=False).drop_duplicates()
+correlation_analysis
+```
+![download (6)](https://github.com/user-attachments/assets/6cdd1bcb-e130-486d-a68e-821115a947a1)
 
+#### Correlation Heatmap Analysis:
+
+The correlation heatmap highlights the relationships among numerical variables in the dataset. Key observations include:
+
+#### Strong Positive Correlations:
+* emp_var_rate and euribor3m (0.97): Indicates a strong linear relationship, suggesting economic trends are closely linked.
+* nr_employed and euribor3m (0.95): Suggests that employment levels are heavily tied to interest rates.
+* nr_employed and emp_var_rate (0.91): Confirms that employment variation aligns closely with overall employment numbers.
+  
+#### Moderate Positive Correlations:
+* cons_price_idx with emp_var_rate (0.78) and euribor3m (0.69): Indicates the price index partially tracks broader economic indicators.
+* pdays with nr_employed (0.37): Suggests a weak association between previous contact timing and employment levels.
+  
+#### Weak or Insignificant Correlations:
+* Variables like age and campaign show negligible relationships with other numerical features, indicating limited linear dependencies.
+
+#### Negative Correlations:
+* previous and pdays (-0.59): Suggests that fewer previous contacts are associated with longer durations since the last contact.
+* nr_employed and previous (-0.50): Indicates that employment levels inversely relate to prior campaign engagements.
+
+#### Implications:
+* Features like euribor3m, emp_var_rate, and nr_employed are critical indicators of economic trends and likely influence the target variable (y).
+* Variables with weak correlations, such as campaign, may require deeper non-linear analysis or be deprioritized in feature importance.
 
 
 

@@ -258,3 +258,71 @@ plt.show()
 ```
 ![download (1)](https://github.com/user-attachments/assets/5773245a-f196-467f-8fcc-4813e974e5a8)
 
+```python
+# Visualization 3: Violin Plot for Age Distribution by Education and Target Variable
+plt.figure(figsize=(12, 6))
+sns.violinplot(x='education', y='age', hue='y', data=df_cleaned, split=True, inner="quart", palette='muted')
+plt.title("Age Distribution by Education Level and Subscription Status")
+plt.xlabel("Education Level")
+plt.ylabel("Age")
+plt.xticks(rotation=45)
+plt.show()
+```
+![download (2)](https://github.com/user-attachments/assets/518c4c34-21d2-40d9-a23e-c0bfc65f3aa9)
+
+```python
+# Visualization 4: Monthly Trend of Subscription Rates as a Line Plot
+monthly_data = df_cleaned.groupby('month')['y'].value_counts(normalize=True).unstack()['yes'] * 100
+monthly_data = monthly_data.reindex(['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'])
+plt.figure(figsize=(10, 6))
+sns.lineplot(data=monthly_data, marker='o', linewidth=2, color='blue')
+plt.title("Monthly Subscription Rate Trend")
+plt.xlabel("Month")
+plt.ylabel("Subscription Rate (%)")
+plt.xticks(rotation=45)
+plt.show()
+```
+![download (3)](https://github.com/user-attachments/assets/28f7b4e4-35fb-40da-89b1-b5b1e30f4c57)
+
+```python
+# Visualization 5: Heatmap of Target Variable by Job and Contact Type
+heatmap_data = pd.crosstab(df_cleaned['job'], df_cleaned['contact'], normalize='index')
+plt.figure(figsize=(12, 8))
+sns.heatmap(heatmap_data, annot=True, fmt=".2f", cmap="YlGnBu")
+plt.title("Heatmap of Contact Type by Job Role")
+plt.xlabel("Contact Type")
+plt.ylabel("Job Role")
+plt.show()
+```
+![download (4)](https://github.com/user-attachments/assets/a212fe6c-a237-40a6-a07e-547b39ce8abf)
+
+```python
+# Visualization 6: Distribution of Employment Variation Rate by Housing Loan and Subscription
+plt.figure(figsize=(12, 6))
+sns.boxenplot(x='housing', y='emp_var_rate', hue='y', data=df_cleaned, palette='coolwarm')
+plt.title("Employment Variation Rate Distribution by Housing Loan and Subscription Status")
+plt.xlabel("Housing Loan")
+plt.ylabel("Employment Variation Rate")
+plt.legend(title="Subscribed")
+plt.show()
+```
+![download (5)](https://github.com/user-attachments/assets/3a907645-f525-4c43-8fd8-e5e21a815354)
+
+```python
+# Visualization 7: Sunburst Chart of Marital Status, Education, and Subscription
+import plotly.express as px
+
+sunburst_data = df_cleaned.groupby(['marital', 'education', 'y']).size().reset_index(name='count')
+fig = px.sunburst(sunburst_data, path=['marital', 'education', 'y'], values='count', color='count',
+                  color_continuous_scale='Viridis', title="Sunburst Chart of Marital Status, Education, and Subscription")
+fig.show()
+```
+<img width="1638" alt="Screenshot 2025-01-20 at 4 07 26 PM" src="https://github.com/user-attachments/assets/1dd27f7b-b56c-4502-9936-aa9f7986f9be" />
+
+```python
+
+
+
+
+
+

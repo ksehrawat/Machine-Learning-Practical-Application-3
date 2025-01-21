@@ -236,3 +236,16 @@ df_cleaned.info()
 * Removed the duration column as it should not be used for realistic modeling.
 #### Renamed Columns:
 * Adjusted column names to make them more readable by replacing periods with underscores.
+
+### Data Visualization
+```python
+# Visualization 1: Marital Status Impact on Subscription
+plt.figure(figsize=(8, 6))
+sns.countplot(x='marital', hue='y', data=df_cleaned, palette='pastel')
+plt.title("Marital Status Impact on Subscription")
+plt.xlabel("Marital Status")
+plt.ylabel("Count")
+plt.legend(title="Subscribed", loc='upper right')
+plt.show()
+```
+![download](https://github.com/user-attachments/assets/c9a3e279-f520-47fe-b807-1dbc59ef6298)

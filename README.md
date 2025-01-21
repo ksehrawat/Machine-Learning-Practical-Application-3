@@ -249,3 +249,12 @@ plt.legend(title="Subscribed", loc='upper right')
 plt.show()
 ```
 ![download](https://github.com/user-attachments/assets/c9a3e279-f520-47fe-b807-1dbc59ef6298)
+
+```python
+# Visualization 2: Pair Plot of Key Numerical Variables Colored by Target Variable
+sns.pairplot(df_cleaned, vars=['age', 'campaign', 'pdays', 'emp_var_rate'], hue='y', palette='husl', diag_kind='kde')
+plt.suptitle("Pair Plot of Key Numerical Variables by Subscription Status", y=1.02)
+plt.show()
+```
+![download (1)](https://github.com/user-attachments/assets/5773245a-f196-467f-8fcc-4813e974e5a8)
+

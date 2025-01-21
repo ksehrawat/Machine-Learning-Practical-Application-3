@@ -235,4 +235,4 @@ df_cleaned.info()
 #### Dropped Columns:
 * Removed the duration column as it should not be used for realistic modeling.
 #### Renamed Columns:
-*Adjusted column names to make them more readable by replacing periods with underscores.
+* Adjusted column names to make them more readable by replacing periods with underscores.

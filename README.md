@@ -414,3 +414,60 @@ df_encoded.head()
 * Counted previous successful contacts using the poutcome feature.
 #### Normalization:
 * Scaled numerical columns to a 0–1 range using MinMaxScaler.
+
+### Data Modeling - Logistic Regression Model
+
+```python
+# Logistic Regression Model on the Updated Encoded Data
+
+from sklearn.preprocessing import StandardScaler
+
+# Define X and y for modeling
+y = df_encoded['y'].apply(lambda x: 1 if x == 'yes' else 0)  # Binary encoding for target variable
+X = df_encoded.drop(columns=['y'])  # Exclude the target column
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X) # Now X is defined before being used.
+
+# Train/Test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Initialize Logistic Regression model
+logistic_model = LogisticRegression(solver='liblinear', max_iter=2000, random_state=42)
+
+# Train the model
+logistic_model.fit(X_train, y_train)
+
+# Predict on the test set
+y_pred_logistic = logistic_model.predict(X_test)
+
+# Evaluate Logistic Regression Model
+logistic_results = {
+    'Accuracy': accuracy_score(y_test, y_pred_logistic),
+    'Precision': precision_score(y_test, y_pred_logistic),
+    'Recall': recall_score(y_test, y_pred_logistic),
+    'F1 Score': f1_score(y_test, y_pred_logistic),
+    'Classification Report': classification_report(y_test, y_pred_logistic)
+}
+
+# Display the evaluation metrics for Logistic Regression
+logistic_results_df = pd.DataFrame([logistic_results]).T
+
+print("Logistic Regression Model Results")
+display(logistic_results_df)
+```
+<img width="345" alt="Screenshot 2025-01-20 at 4 45 52 PM" src="https://github.com/user-attachments/assets/c014a9cf-6382-46b1-9865-ab2d860a0dde" />
+
+#### Initial Logistic Regression Results Analysis
+#### Key Metrics:
+#### Accuracy:
+* The initial model achieved an accuracy of approximately 89.83%. While high, this metric alone can be misleading in an imbalanced dataset because it favors the majority class (no).
+
+#### Precision:
+* The precision score was 68.54%. This indicates that when the model predicted a positive outcome (yes), it was correct 68.54% of the time.
+
+#### Recall:
+* Recall was only 17.57%, showing that the model identified only a small fraction of the actual positive cases (yes). This suggests the model heavily favored the majority class, failing to capture most subscribing clients.
+
+#### F1 Score:
+* The F1 Score was 27.97%, reflecting the imbalance between Precision and Recall. This low score highlights that the model struggled to balance the trade-off between avoiding false positives and capturing true positives.

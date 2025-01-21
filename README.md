@@ -581,6 +581,26 @@ display(performance_df)
 ```
 <img width="571" alt="Screenshot 2025-01-20 at 4 51 18 PM" src="https://github.com/user-attachments/assets/ed9b10c3-7cc7-4d4f-9954-b8eac41af368" />
 
+#### Logistic Regression:
+* Train Time: Efficient at 0.1834 seconds.
+* Accuracy: Well-balanced performance between train and test datasets (~89.8%).
+* Strength: Reliable and interpretable, handles imbalanced data decently with class weighting.
+
+#### K-Nearest Neighbors (KNN):
+* Train Time: Fastest training at 0.0185 seconds.
+* Accuracy: Slightly better Train Accuracy (91.44%) but slightly worse Test Accuracy (89.29%).
+* Strength: Non-parametric and simple but sensitive to noise and scaling.
+
+#### Decision Tree:
+* Train Time: Moderate at 0.2902 seconds.
+* Accuracy: High Train Accuracy (99.49%) but significantly lower Test Accuracy (83.63%), indicating overfitting.
+* Strength: Flexible and interpretable but prone to overfitting without pruning.
+  
+#### Support Vector Machine (SVM):
+* Train Time: Longest at 22.5584 seconds, due to computationally expensive optimization.
+* Accuracy: Consistent Train Accuracy (88.72%) and Test Accuracy (88.76%).
+* Strength: Effective in high-dimensional spaces but slow on large datasets.
+
 ### Model Improvements
 
 ```python

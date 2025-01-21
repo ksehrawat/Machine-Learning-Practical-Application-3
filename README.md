@@ -528,4 +528,181 @@ The adjusted Logistic Regression model has been successfully trained and evaluat
 
 These improvements demonstrate better balance between Precision and Recall for the minority class (yes), as indicated by the higher Recall and F1 Score compared to previous evaluations.​
 
+### Classification Models Comparison
+
+```python
+# Importing necessary libraries for additional models
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score
+import time
+
+# Initialize models with default settings
+models = {
+    'Logistic Regression': LogisticRegression(max_iter=5000, solver='liblinear', random_state=42),
+    'KNN': KNeighborsClassifier(),
+    'Decision Tree': DecisionTreeClassifier(random_state=42),
+    'SVM': SVC(random_state=42)
+}
+
+# Dictionary to store results
+model_performance = []
+
+# Loop through each model, fit, and evaluate
+for model_name, model in models.items():
+    # Record start time
+    start_time = time.time()
+
+    # Train the model
+    model.fit(X_train, y_train)
+
+    # Record end time
+    train_time = time.time() - start_time
+
+    # Evaluate the model on train and test sets
+    train_accuracy = accuracy_score(y_train, model.predict(X_train))
+    test_accuracy = accuracy_score(y_test, model.predict(X_test))
+
+    # Append results to the list
+    model_performance.append({
+        'Model': model_name,
+        'Train Time (s)': round(train_time, 4),
+        'Train Accuracy': round(train_accuracy, 4),
+        'Test Accuracy': round(test_accuracy, 4)
+    })
+
+# Convert results to DataFrame
+performance_df = pd.DataFrame(model_performance)
+
+# Display the performance comparison
+print("Model Performance Comparison:")
+display(performance_df)
+```
+<img width="571" alt="Screenshot 2025-01-20 at 4 51 18 PM" src="https://github.com/user-attachments/assets/ed9b10c3-7cc7-4d4f-9954-b8eac41af368" />
+
+### Model Improvements
+
+```python
+# Exploring feature importance using a Decision Tree Classifier
+from sklearn.tree import DecisionTreeClassifier
+import numpy as np
+
+# Train a Decision Tree Classifier for feature importance analysis
+tree_model = DecisionTreeClassifier(random_state=42)
+tree_model.fit(X_train, y_train)
+
+# Extract feature importances
+feature_importances = tree_model.feature_importances_
+importance_df = pd.DataFrame({
+    'Feature': X_train.columns,
+    'Importance': feature_importances
+}).sort_values(by='Importance', ascending=False)
+
+# Display the top features
+top_features_df = importance_df.head(10)
+print("Top 10 Feature Importances:")
+display(top_features_df)
+
+# Visualization of feature importances
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 6))
+plt.barh(top_features_df['Feature'], top_features_df['Importance'], color='skyblue')
+plt.title('Top 10 Feature Importances')
+plt.xlabel('Importance')
+plt.ylabel('Feature')
+plt.gca().invert_yaxis()  # Invert y-axis for better readability
+plt.show()
+```
+![download (7)](https://github.com/user-attachments/assets/0e160f2f-2266-41f6-b641-2fc8778dab1d)
+
+```python
+# Refining the dataset to include only the top features
+top_features = [
+    'age', 'nr_employed', 'euribor3m', 'campaign',
+    'campaign_pdays_interaction', 'housing_yes',
+    'pdays', 'loan_yes', 'cons_conf_idx',
+    'education_university.degree'
+]
+
+# Create a refined dataset
+X_refined = X[top_features]  # Using only the top features for X
+y_refined = y  # Target variable remains the same
+
+# Train/Test split with refined features
+X_train_refined, X_test_refined, y_train_refined, y_test_refined = train_test_split(X_refined, y_refined, test_size=0.3, random_state=42)
+
+# Train a Logistic Regression model on the refined dataset
+logistic_model_refined = LogisticRegression(max_iter=5000,solver='liblinear', random_state=42)
+logistic_model_refined.fit(X_train_refined, y_train_refined)
+
+# Predict on the test set
+y_pred_refined = logistic_model_refined.predict(X_test_refined)
+
+# Evaluate the refined model
+refined_results = {
+    'Accuracy': accuracy_score(y_test_refined, y_pred_refined),
+    'Precision': precision_score(y_test_refined, y_pred_refined),
+    'Recall': recall_score(y_test_refined, y_pred_refined),
+    'F1 Score': f1_score(y_test_refined, y_pred_refined),
+    'Classification Report': classification_report(y_test_refined, y_pred_refined, output_dict=False)
+}
+
+# Display the refined model results
+refined_results_df = pd.DataFrame.from_dict(refined_results, orient='index', columns=['Value'])
+print("\nRefined Logistic Regression Model Results:")
+display(refined_results_df)
+```
+<img width="383" alt="Screenshot 2025-01-20 at 4 55 22 PM" src="https://github.com/user-attachments/assets/2788593f-3093-4b4b-b786-862b72b2ab9f" />
+
+### Improvement in Precision:
+* The refined model achieves a higher precision of 70.14%, indicating fewer false positives.
+### Slight Increase in Accuracy:
+* Accuracy improves to 89.95%, slightly higher than the initial model, despite using fewer features.
+### Recall and F1 Score:
+* Recall remains low at 18.43%, meaning the model still misses many true positives.
+* The F1 Score improves to 29.19%, reflecting a better balance between Precision and Recall.
+
+### Use Rando Forest Model with SMOTE to address class imbalance and improve Recall
+
+```python
+# Applying SMOTE to address class imbalance and improve Recall
+from imblearn.over_sampling import SMOTE
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import roc_auc_score
+
+# Apply SMOTE for class balancing
+smote = SMOTE(random_state=42)
+X_resampled, y_resampled = smote.fit_resample(X_refined, y_refined)
+
+# Train/Test split on the resampled dataset
+X_train_resampled, X_test_resampled, y_train_resampled, y_test_resampled = train_test_split(
+    X_resampled, y_resampled, test_size=0.3, random_state=42
+)
+
+# Train a Random Forest Classifier
+random_forest = RandomForestClassifier(random_state=42, n_estimators=100, max_depth=10)
+random_forest.fit(X_train_resampled, y_train_resampled)
+
+# Predict on the test set
+y_pred_rf = random_forest.predict(X_test_resampled)
+
+# Evaluate the Random Forest model
+rf_results = {
+    'Accuracy': accuracy_score(y_test_resampled, y_pred_rf),
+    'Precision': precision_score(y_test_resampled, y_pred_rf),
+    'Recall': recall_score(y_test_resampled, y_pred_rf),
+    'F1 Score': f1_score(y_test_resampled, y_pred_rf),
+    'AUC-ROC': roc_auc_score(y_test_resampled, random_forest.predict_proba(X_test_resampled)[:, 1]),
+    'Classification Report': classification_report(y_test_resampled, y_pred_rf, output_dict=False)
+}
+
+# Display the Random Forest model results
+rf_results_df = pd.DataFrame.from_dict(rf_results, orient='index', columns=['Value'])
+print("Random Forest Model Results:")
+display(rf_results_df)
+```
+<img width="357" alt="Screenshot 2025-01-20 at 4 58 36 PM" src="https://github.com/user-attachments/assets/45fcf658-bea0-4460-a3c9-d16d97bf91f6" />
+
 
